@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - MealMap</title>
+  <link rel="stylesheet" href="styles/admin.css"/>
+  <link rel="icon" type="image/png" href="assets/logo.jpg" />
+</head>
+<body>
+  <header>
+    <h1>MealMap Admin Panel</h1>
+    <nav>
+      <button onclick="showSection('moderation')" class="btn">Moderation</button>
+      <button onclick="showSection('reports')" class="btn">Daily Reports</button>
+      <button onclick="showSection('onboarding')" class="btn">Onboarding</button>
+    </nav>   
+  </header>
+
+  <main>
+    <!-- Moderation Section -->
+    <section id="moderation" class="panel-section">
+      <h2>User & Post Moderation</h2>
+      <div class="moderation-list">
+       
+        <!-- Add more dynamically -->
+        <div class="moderation-item">
+          <p><strong>User:</strong>sai</p>
+          <p><strong>Post:</strong> 5 kg biryani</p>
+          <button onclick="flagItem('user123')" class="flag">Flag User</button>
+          <button onclick="removePost('post001')" class="flag">Remove Post</button>
+        </div>
+
+        <div class="moderation-item">
+          <p><strong>User:</strong>varun</p>
+          <p><strong>Post:</strong> 5 chapathi</p>
+          <button onclick="flagItem('user123')" class="flag">Flag User</button>
+          <button onclick="removePost('post001')" class="flag">Remove Post</button>
+        </div>
+
+        <div class="moderation-item">
+          <p><strong>User:</strong>ajay</p>
+          <p><strong>Post:</strong> 2kg veg rice</p>
+          <button onclick="flagItem('user123')" class="flag">Flag User</button>
+          <button onclick="removePost('post001')" class="flag">Remove Post</button>
+        </div>
+
+        <div class="moderation-item">
+          <p><strong>User:</strong> adhi</p>
+          <p><strong>Post:</strong>350gm chicken</p>
+          <button onclick="flagItem('user123')" class="flag">Flag User</button>
+          <button onclick="removePost('post001')" class="flag">Remove Post</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="reports" class="panel-section hidden">
+      <h2>Daily Reports</h2>
+      <!--<ul class="report-metrics">
+        <li><strong>Food Saved:</strong> <span id="foodSaved">120</span> kg</li>
+        <li><strong>People Served:</strong> <span id="peopleServed">80</span></li>
+        <li><strong>CO₂ Prevented:</strong> <span id="co2Saved">56</span> kg</li>
+      </ul>-->
+      <div class="cards">
+        <div class="card">
+          <img src="assets/homepics/user.png" alt="Users Icon">
+          <h3>10+</h3>
+          <p>People Served</p>
+        </div>
+        <div class="card">
+          <img src="assets/homepics/calendar.jpg" alt="Calendar Icon">
+          <h3>20 kg</h3>
+          <p>Food Saved Monthly</p>
+        </div>
+        <div class="card">
+          <img src="assets/homepics/heart.png" alt="Heart Icon">
+          <h3>50+</h3>
+          <p>Active Donors</p>
+        </div>
+    
+      
+    </section>
+
+    <!-- Onboarding Section -->
+    <section id="onboarding" class="panel-section hidden">
+      <h2>Onboard NGOs / Volunteers</h2>
+      <form onsubmit="addNGO(event)">
+        <label>Name: <input type="text" id="ngoName" required class="input" /></label>
+        <label>Email: <input type="email" id="ngoEmail" required  class="input"/></label>
+        <label>Role:
+          <select id="ngoRole">
+            <option value="NGO">NGO</option>
+            <option value="Volunteer">Volunteer</option>
+          </select>
+        </label>
+        <button type="submit" id="add">Add</button>
+      </form>
+
+      <div id="onboardedList"></div>
+    </section> 
+  </main>
+
+ 
+  
+
+  <script>
+
+function showSection(id) {
+    document.querySelectorAll(".panel-section").forEach(sec => sec.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+  }
+  
+  // Simulated moderation logic
+  function flagItem(userId) {
+    alert(`User ${userId} flagged for suspicious activity.`);
+  }
+  
+  function removePost(postId) {
+    alert(`Post ${postId} has been removed.`);
+  }
+  
+  // Simulated onboarding logic
+  function addNGO(event) {
+    event.preventDefault();
+    const name = document.getElementById('ngoName').value;
+    const email = document.getElementById('ngoEmail').value;
+    const role = document.getElementById('ngoRole').value;
+  
+    const container = document.getElementById('onboardedList');
+    const entry = document.createElement('div');
+    entry.innerHTML = `<strong>${role}:</strong> ${name} (${email})`;
+    container.appendChild(entry);
+  
+    document.getElementById('ngoName').value = '';
+    document.getElementById('ngoEmail').value = '';
+  }
+  </script>
+</body>
+</html>

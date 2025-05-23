@@ -9,6 +9,7 @@ const Donation = require("./Models/donation");
 
 
 const User = require('./Models/user');
+const feedback = require("./Models/feedback");
 
 
 dotenv.config();
@@ -76,6 +77,9 @@ app.post('/login' , async(req,res) => {
     const email  = req.body["email"];
     const password = req.body['password'];
     console.log(email);
+    if(email == 'admin@gmail.com' && password == 'admin@1234'){
+      return res.render("admin");
+    }
     const auth = await User.findOne({ email : email , password : password });
     if(!auth){
         return res.render("Loginpage/login" , {error:'Invalid Credentials !!'})
@@ -135,7 +139,41 @@ app.get('/receiver', async (req, res) => {
       res.status(500).send('Server error');
     }
   });
-  
+
+
+
+//!Feedback
+app.post('/submitfeedback' , async (req,res) => {
+  try {
+    const { name, date, rating, comments } = req.body;
+
+    // Create a new feedback document
+    const newFeedback = new feedback({
+      name,
+      date,
+      rating,
+      comments
+    });
+
+    // Save to MongoDB
+     await newFeedback.save();
+     return res.render("feedback");
+  } catch (error) {
+   
+  }
+
+});
+
+
+app.get('/donorfeedback' , async(req,res)=>{
+  try{
+  const feedbacks = await feedback.find().sort({ date: -1 });
+  return res.render("displayfeedback" , {feedbacks});
+  }
+  catch(err){
+    res.status(500).send('Server Error');
+  }
+});
 
 //!Server start
 app.listen(PORT, () => {

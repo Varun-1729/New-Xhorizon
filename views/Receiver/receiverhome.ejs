@@ -67,7 +67,7 @@
     <h2>Food Receiver Feedback</h2>
 
 
-<form id="feedbackForm">
+<form id="feedbackForm"  action="/submitfeedback" method="post">
   <label for="name">Your Name (optional):</label><br>
   <input type="text" id="name" name="name" placeholder="Enter your name"><br><br>
 
@@ -88,21 +88,11 @@
   <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Write your feedback here..."></textarea><br><br>
 
   <button type="submit">Submit Feedback</button>
+   
 </form>
 
-<p id="thankYouMessage" style="color: green; display: none;">Thank you for your feedback!</p>
 
-<script>
-document.getElementById("feedbackForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent actual form submission
-  // Show thank you message
-  document.getElementById("thankYouMessage").style.display = "block";
-  alert("Thank you for your feedback!")
 
-  // Optionally reset the form
-  document.getElementById("feedbackForm").reset();
-});
-</script>
 
 
 

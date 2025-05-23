@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Feedbacks</title>
+  <link rel="icon" type="image/png" href="assets/logo.jpg" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 30px;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .feedback-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: left;
+    }
+    .feedback-card h3 {
+      margin-top: 0;
+      color: #4caf50;
+    }
+    .feedback-card p {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>All Feedback Submissions</h1>
+
+  <div class="container">
+    <% feedbacks.forEach(function(feedback) { %>
+      <div class="feedback-card">
+        <h3><%= feedback.name || 'Anonymous' %></h3>
+        <p><span class="label">Date:</span> <%= new Date(feedback.date).toDateString() %></p>
+        <p><span class="label">Rating:</span> <%= feedback.rating %> 
+          (<%= feedback.rating === 5 ? 'Excellent' :
+              feedback.rating === 4 ? 'Good' :
+              feedback.rating === 3 ? 'Average' :
+              feedback.rating === 2 ? 'Poor' :
+              'Very Poor' %>)
+        </p>
+        <p><span class="label">Comments:</span> <%= feedback.comments || 'No comments' %></p>
+      </div>
+    <% }); %>
+  </div>
+
+</body>
+</html>
